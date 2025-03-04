@@ -1,0 +1,33 @@
+---
+- name: Configure a Python HTTP service
+  hosts: local
+  gather_facts: no
+  become: yes
+  vars_files:
+    - ../group_vars/all/vars.yml
+    - ../group_vars/all/vault.yml  # or dev_vault.yml / prod_vault.yml
+  tasks:
+    - name: Create a directory for the service
+      file:
+        path: /opt/simple_http_service
+        state: directory
+
+    - name: Place an index file
+      copy:
+        dest: /opt/simple_http_service/index.html
+        content: |
+          <html>
+            <head><title>Simple HTTP Service</title></head>
+            <body>
+              <h1>This is served by Python's built-in HTTP server!</h1>
+            </body>
+          </html>
+
+    - name: Launch Python HTTP server in the background
+      shell: "nohup python3 -m http.server 8000 --directory /opt/simple_http_service > /opt/simple_http_service/service.log 2>&1 &"
+      args:
+        creates: /opt/simple_http_service/service.log
+
+    - name: Log the API key
+      debug:
+        msg: "API Key in use: {{ api_key }}"

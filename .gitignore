@@ -1,0 +1,6 @@
+# Ignore vault password files if you store them locally
+vault-pass.txt
+
+# Python cache
+__pycache__/
+*.pyc

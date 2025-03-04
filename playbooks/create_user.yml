@@ -1,0 +1,14 @@
+---
+- name: Create a user using the encrypted password
+  hosts: local
+  become: yes
+  gather_facts: no
+  vars_files:
+    - ../group_vars/all/vars.yml
+    - ../group_vars/all/vault.yml
+  tasks:
+    - name: Create a new user with hashed password
+      user:
+        name: "my_new_user"
+        password: "{{ user_password | password_hash('sha512') }}"
+        shell: /bin/bash
