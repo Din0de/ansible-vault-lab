@@ -1,13 +1,12 @@
- ansible-vault-lab/
-
+ansible-vault-lab/
  ├── group_vars/
- │ └── all/
- │ ├── vault.yml (encrypted)
- │ └── vars.yml
+ │   └── all/
+ │       ├── vault.yml (encrypted)
+ │       └── vars.yml
  ├── inventory/
- │ └── production.ini
+ │   └── production.ini
  ├── playbooks/
- │ ├── create_user.yml
- │ └── configure_service.yml
+ │   ├── create_user.yml
+ │   └── configure_service.yml
  ├── README.md
  └── requirements.txt
